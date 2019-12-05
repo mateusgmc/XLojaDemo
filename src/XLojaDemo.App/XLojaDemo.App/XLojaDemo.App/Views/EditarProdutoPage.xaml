@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="XLojaDemo.App.Views.EditarProdutoPage"
+    Title="Editar Produto"
+>
+    <ContentPage.Content>
+        <StackLayout
+            Margin="0, 10, 0, 20"
+            VerticalOptions="Center"
+        >
+            <Image Source="editar_cadastro.png" />
+            <Entry Placeholder="Descrição" Text="{Binding Descricao}" />
+            <Entry Placeholder="Preço" Keyboard="Numeric" Text="{Binding Preco}" />
+            <Button Text="Salvar" BackgroundColor="Gray" Command="{Binding SalvarProdutoCommand}" />
+            <Button Text="Deletar" Command="{Binding DeletarProdutoCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

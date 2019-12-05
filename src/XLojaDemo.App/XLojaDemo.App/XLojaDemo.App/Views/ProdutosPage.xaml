@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:c="clr-namespace:XLojaDemo.App.Converters"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="XLojaDemo.App.Views.ProdutosPage"
+    Title="Produtos"
+    x:Name="view"
+>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding Produtos}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <FlexLayout AlignItems="Center">
+                                <Image Margin="10, 0, 0, 0" Source="produtos_foto.png" />
+                                <Label Margin="5, 0, 0, 0" Text="{Binding Nome}" />
+                            </FlexLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior
+                        EventName="ItemTapped" 
+                        Command="{Binding EditarProdutoCommand}"
+                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+                </ListView.Behaviors>
+            </ListView>
+            <Button Text="Novo produto" Command="{Binding NovoProdutoCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
