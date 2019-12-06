@@ -22,11 +22,11 @@ namespace XLojaDemo.App.ViewModels
 
         public DelegateCommand DeletarProdutoCommand { get; }
 
-        private int _id;
-        public int Id
+        private Produto _produto;
+        public Produto Produto
         {
-            get { return _id; }
-            set { SetProperty(ref _id, value); }
+            get { return _produto; }
+            set { SetProperty(ref _produto, value); }
         }
 
         private string _descricao;
@@ -45,25 +45,22 @@ namespace XLojaDemo.App.ViewModels
 
         private async void DeletarProdutoExecute()
         {
-            await _lojaApiService.Api.DeleteProdutoAsync(Id);
+            await _lojaApiService.Api.DeleteProdutoAsync(Produto.Id);
             await NavigationService.NavigateAsync("ProdutosPage");
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            var produto = parameters["model"] as Produto;
-            Id = produto.Id;
-            Descricao = produto.Nome;
-            Preco = produto.Preco;
+            Produto = parameters["model"] as Produto;
+            Descricao = Produto.Nome;
+            Preco = Produto.Preco;
         }
 
         private async void SalvarProdutoExecute()
         {
-            await _lojaApiService.Api.AddOrUpdateProdutoAsync(new Produto
-            {
-                Nome = Descricao,
-                Preco = Preco
-            });
+            Produto.Nome = Descricao;
+            Produto.Preco = Preco;
+            await _lojaApiService.Api.AddOrUpdateProdutoAsync(Produto);
             await NavigationService.NavigateAsync("ProdutosPage");
         }
     }
